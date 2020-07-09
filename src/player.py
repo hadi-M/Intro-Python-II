@@ -2,7 +2,7 @@
 # currently.
 from collections import defaultdict
 from room import Room
-from pdb import set_trace as st
+from pudb import set_trace as st
 
 
 class Player():
@@ -10,11 +10,11 @@ class Player():
         self.name = name
         self.current_room = current_room
         self.available_directions =\
-            self.update_available_directions(current_room)
+            self.get_available_directions(current_room)
 
     def get_available_directions(self, next_map):
-        st()
-        self.available_directions = defaultdict(
+        # st()
+        return defaultdict(
             lambda: None,
             {
                 "n": next_map.n_to,
@@ -29,7 +29,8 @@ class Player():
         next_room = self.available_directions[direction]
         if next_room:
             self.current_room = next_room
-            self.update_available_directions(next)
+            self.available_directions =\
+                self.get_available_directions(next_room)
             return True
         else:
             return False
