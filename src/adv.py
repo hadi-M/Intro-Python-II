@@ -1,4 +1,7 @@
+from getch import _Getch as getch
 from room import Room
+from player import Player
+from pdb import set_trace as st
 
 # Declare all the rooms
 
@@ -36,6 +39,21 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
+
+
+def main() -> None:
+    # st()
+    player_1 = Player("Hadi", room['outside'])
+    
+    while True:
+        player_1.report_position()
+        next_direction = input()
+        if not player_1.move(next_direction):
+            print("not valid! enter a new direction:")
+            continue
+
+
+main()
 
 # Make a new player object that is currently in the 'outside' room.
 
