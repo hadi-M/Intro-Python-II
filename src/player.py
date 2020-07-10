@@ -1,6 +1,7 @@
 # Write a class to hold player information, e.g. what room they are in
 # currently.
 from collections import defaultdict
+from termcolor import colored
 from room import Room
 from pudb import set_trace as st
 
@@ -11,6 +12,7 @@ class Player():
         self.current_room = current_room
         self.available_directions =\
             self.get_available_directions(current_room)
+        self.items = []
 
     def get_available_directions(self, next_map):
         # st()
@@ -36,6 +38,14 @@ class Player():
             return False
     
     def report_position(self):
-        print(f"I am at \"{self.current_room.name}\"\n")
+        print(f"I am at \"{self.current_room.name}\"\ndescripton:{self.current_room.description}\n")
+
+    def add_item(self, item):
+        self.items.append(item)
+    
+    def show_items(self):
+        print("Your items are:")
+        for item in enumerate(self.items):
+            print("\t{i}. {item.name}")
 
     

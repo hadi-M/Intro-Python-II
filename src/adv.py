@@ -6,8 +6,15 @@ from pdb import set_trace as st
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+    'outside': Room(
+        "Outside Cave Entrance",
+        "North of you, the cave mount beckons"
+        [
+            Item("I1", "desc1"),
+            Item("I2", "desc3"),
+            Item("I2", "desc3")
+        ]
+    ),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -35,7 +42,7 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
-
+room['outside'].
 #
 # Main
 #
@@ -47,10 +54,23 @@ def main() -> None:
     
     while True:
         player_1.report_position()
-        next_direction = input()
-        if not player_1.move(next_direction):
-            print("not valid! enter a new direction:")
-            continue
+        command = input()
+        command_list = command.split()
+        if len(command_list == 2):
+            verb = command_list[0]
+            item_name = command_list[1]
+            if verb in ["get", "take"]:
+                wanted_item = room.give_up_item(item_name)
+                if wanted_item:
+                    player_1.add_item(wanted_item)
+                else:
+                    print("no such item!")
+        else:
+            if command == "i":
+                player_1.show_items()
+            if not player_1.move(next_direction):
+                print("not valid! enter a new direction:")
+                continue
 
 
 main()
